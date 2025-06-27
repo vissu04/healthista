@@ -17,10 +17,17 @@ Follow the given format
 Healthista-
 │
 ├── chat-bot/          # possibly for chatbot-specific files
+
 ├── CSS/               # for CSS stylesheets
+
 ├── images/            # for images (correct placement)
+
 ├── js/                # for JavaScript files
+
 ├── therapy/           # possibly for therapy-related pages or modules
+
 │
 ├── index.html         # main landing page
+
 └── login.html         # login page
+
