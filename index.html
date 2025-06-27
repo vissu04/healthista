@@ -1,570 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Healthista</title>
-  <!-- <link rel="icon" href="/images/favicon-enhanced.png"> -->
-  <link rel="stylesheet" href="./CSS/style.css" />
-  <!-- <link rel="manifest" href="manifest.json"> -->
-  <link rel="apple-touch-icon" href="/images/favicon-enhanced.png" />
-  <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
-  <meta name="theme-color" content="#000000" />
-  <link rel="stylesheet" text="text/CSS"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-  <link rel="stylesheet" text="text/CSS"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-</head>
-<style>
-  html {
-    scroll-behavior: smooth;
-
-  }
-
-  .hidden {
-    visibility: hidden;
-  }
-
-  .back-top-wrap {
-    position: fixed;
-    bottom: 5rem;
-    right: 1rem;
-    background-color: #80F7D1;
-    padding: 1rem 1.2rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: .3s ease-in-out;
-    z-index: 100;
-  }
-
-  .back-top-wrap:hover {
-    background-color: #00a2ff;
-    color: #80F7D1;
-  }
-
-  .back-top-wrap:hover .fas.fa-arrow-up {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: skyblue;
+    margin: 0;
+}
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 750px;
+    height: 70vh;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin: 5rem 24rem;
+}
+.chat-header {
+    padding: 10px;
+    background-color: #007bff;
     color: white;
-  }
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+.chat-window {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.input-container {
+    display: flex;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fafafa;
+}
+.input-container input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    margin-right: 10px;
+    font-size: 14px;
+}
+.input-container button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+.input-container button:hover {
+    background-color: #0056b3;
+}
+.message {
+    max-width: 80%;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 15px;
+    display: inline-block;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.user-message {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+.bot-message {
+    background-color: #f8d7da;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+.loading {
+    display: flex;
+    align-items: center;
+}
+.loading span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 2px;
+    background-color: #333;
+    border-radius: 50%;
+    animation: loading 1s infinite alternate;
+}
+.loading span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.loading span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+@keyframes loading {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.5);
+    }
+}
 
-  .fas.fa-arrow-up {
-    color: #00488F;
-    transition: 0.3s ease-in-out;
-  }
-</style>
+/* Navbar Styles */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: #007bff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 
-<body onload="myFunction()">
-  <div class="loading-wrapper">
-    <img src="./images/logo1.png" id="loading"/>
-  </div>
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
 
-  <!-- Back to top button -->
-  <div id="back-top-div" class="back-top-wrap">
-    <i class="fas fa-arrow-up"></i>
-  </div>
-  <header>
-    <nav class="nav" id="nav">
-      <div>
-        <a class="navbar-brand" href="#!"> <img src="./images/logo.png" alt="Logo" class="logo" /></a>
+.nav .logo {
+    height: 40px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links ul li {
+    margin: 0 15px;
+}
+
+.nav-links ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-links ul li a:hover {
+    color: #ffdd57;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.cancel {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links ul {
+        flex-direction: column;
+        background-color: #007bff;
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        width: 100%;
+        height: calc(100% - 60px);
+        transition: right 0.3s ease;
+    }
+
+    .nav-links ul li {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .nav-links ul.active {
+        right: 0;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger .burger {
+        display: block;
+    }
+
+    .hamburger .cancel {
+        display: none;
+    }
+
+    .hamburger.active .burger {
+        display: none;
+    }
+
+    .hamburger.active .cancel {
+        display: block;
+    }
+}
+
+        
+    </style>
+</head>
+<body>
+    <!-- <div class="loading-wrapper">
+        <img src="../images//" id="loading"/>
+      </div> -->
+    
+      <!-- Back to top button -->
+      <div id="back-top-div" class="back-top-wrap">
+        <i class="fas fa-arrow-up"></i>
       </div>
-      <div class="nav-links" id="navLinks">
-        <ul class="links" id="navmenu">
-          <li><a href="#">HOME</a></li>
-          <li><a href="#about">ABOUT</a></li>
-          <li><a href="#services">SERVICES </a></li>
-          <li><a href="/therapy/contact.html">CONTACT US </a></li>
-        </ul>
-      </div>
-      <div class="hamburger" id="ham">
-        <i class="cancel fa-solid fa-xmark"></i>
-
-        <svg class="burger" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z">
-          </path>
-        </svg>
-      </div>
-    </nav>
-    <div class="menu" id="menu">
-      <ul class="menu-link">
-        <li><a href="#">HOME</a></li>
-        <li><a href="#about">ABOUT</a></li>
-        <li><a href="#services">SERVICES </a></li>
-        <li><a href="./therapy/contact.html">CONTACT US </a></li>
-      </ul>
-    </div>
-     <div class="content">
-      <!--<h1>Welcome to Healthista</h1-->
-      <div class="container">
-        <h3><span class="auto-type" style="font-size: 40px;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"></a></span></h3>
-      </div> 
-      <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-      <script>
-        var typed = new Typed(".auto-type", {
-          strings: ["One-step solution to get relief from stress."],
-          typeSpeed: 50,
-          backspeed: 50,
-          loop: true
-        })
-      </script>
-      <!-- <a href="#services" class="rainbow-button" alt="Explore"></a> -->
-    </div>
-
-  </header>
-
-  <!-- About Section -->
-  <section id="about" class="about">
-    <h1 data-aos="flip-right">About Us</h1>
-    <div class="max-width">
-      <div data-aos="zoom-in" class="photo"><img src="./images/frontpage/about us.png" alt="" height="300px" width="330px"></div>
-      <div class="about-content">
-        <p data-aos="fade-left" class="text-1"> We have created a user-friendly website that promotes mental health care and provides resources and support for individuals facing mental health challenges , 
-          with the aim
-          to provide a<span>one step solution</span> to get relief from stress, anxiety, depression. </p>
-        <p data-aos="fade-left" class="text-3">We hope that everyone can live a <span>stress free life </span>with the
-          help of<span> Healthista.</span></p>
-      </div>
-    </div>
-    <h3><span style="color: rgb(91, 134, 150);">MEET OUR MEMBERS</span></h3> 
-
-    <div class="box">
-
-              <div class="card">
-          <img src="./images/frontpage/ay.png" alt="shayan" loading="lazy">
-          <h5>S VISWAS </h5>
-          <br>
-
-          <div class="pra">
-            <p>Core-Members(BV)</p>
-            <!--<p>Leader</p>-->
-          <!--<a href="#"><button>Let's Connect</button></a>-->
+      <header>
+        <nav class="nav" id="nav">
+          <div>
+            <a class="navbar-brand" href="#!"> <img src="../images/logo.png" alt="Logo" class="logo" /></a>
           </div>
-        </div>
-        <div class="card">
-          <img src="./images/frontpage/admin.webp" alt="lagy" loading="lazy">
-          <h5> *Code Crafters* </h5>
-          <div class="pra">
-            <p>InnovativeTheHealingProcess !</p>
-            <a href="https://www.linkedin.com/in/yashwanth-devagudi-v-v-a1a740295?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><button>Let's Connect</button></a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="./images/frontpage/ay.png" alt="lagy" loading="lazy">
-          <h5>G SATHWIK </h5>
-          <br>
-          <h5>S Yashwanth</h5>
-          <div class="pra">
-            <p>Core-Members(BU & BW)</p>
-            <!--<p>Leader</p>-->
-          <!--<a href="#"><button>Let's Connect</button></a>-->
-          </div>
-        </div>
-              
-            
-          </div>
-        </div>
-      
-    </div> 
-  </section>
-
-  <!-- SERVICES SECTION -->
-  <section id="services">
-    <h1>Our Services</h1>
-    <div data-aos="zoom-in" data-aos-duration="800" class="container">
-      <div class="responsive audio">
-        <div class="round-image">
-          <img src="./images/frontpage/audiof.jpg" alt="audio" loading="lazy" />
-        </div>
-        <div class="description">
-          <h2>Audio Therapy</h2>
-          <p>
-            Listening to music & other audio files often enlightens our mood.
-          </p>
-          <a href="./therapy/auido.html">
-            Let's Explore
-          </a>
-        </div>
-      </div>
-      <div data-aos="zoom-in" data-aos-duration="800" class="responsive reading">
-        <div class="round-image">
-          <img src="./images/frontpage/readingf.jpg" alt="read" loading="lazy" />
-        </div>
-        <div class="description">
-          <h2>Reading Therapy</h2>
-          <p>
-            Motivational quotes and books can help us to divert and change our mood.
-          </p>
-          <a href="./therapy/read.html">
-            Let's Explore
-          </a>
-        </div>
-      </div>
-      <div data-aos="zoom-in" data-aos-duration="800" class="responsive yoga">
-        <div class="round-image">
-          <img src="./images/frontpage/yogaf.jpg" alt="yoga" loading="lazy" />
-        </div>
-        <div class="description">
-          <h2>Yoga Therapy</h2>
-          <p>
-            Yoga and exercise plays a very important role in our lives.
-          </p>
-          <a href="./therapy/yoga.html">
-            Let's Explore
-          </a>
-        </div>
-      </div>
-      <div data-aos="zoom-in" data-aos-duration="800" class="responsive laugh">
-        <div class="round-image">
-          <img src="./images/frontpage/laughf.jpg" alt="laughing" />
-        </div>
-        <div class="description">
-          <h2>Laughing Therapy</h2>
-          <p>
-            Laughing is the only medicine which refreshes our mind.
-          </p>
-          <a href="./therapy/laugh.html">
-            Let's Explore
-          </a>
-        </div>
-      </div>
-      
-      
-      <div data-aos="zoom-in" data-aos-duration="800" class="responsive doctor">
-        <div class="round-image">
-          <img src="./images/frontpage/doctorf.jpg" alt="doctor" loading="lazy" />
-        </div>
-        <div class="description">
-          <h2>Consult A Doctor</h2>
-          <p>
-            If you're facing too much problem, you should consult a doctor.
-          </p>
-          <a href="./therapy/doctor.html">
-            Let's Explore
-          </a>
-        </div>
-      </div>
-      <div class="responsive spiritual">
-        <div class="round-image">
-          <img src="./images/frontpage/spf.jpg" alt="spiritual" loading="lazy" />
-        </div>
-        <div class="description">
-          <h2>Spiritual Therapy</h2>
-          <p>
-            Helps you to become more mindful in your thinking
-          </p>
-          <a href="./therapy/spritiual.html">
-            Let's Explore
-          </a>
-        </div>
-      </div>
-      <div class="responsive spiritual">
-        <div class="round-image">
-          <img src="./images/chat_bot/logo.jpg" alt="spiritual" loading="lazy" />
-        </div>
-        <div class="description">
-          <h2>Chat-Bot</h2>
-          <p>
-            MAY I HELP YOU?
-          </p>
-          <a href="./chat-bot/index.html">
-            Let's Explore
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
- 
-  <!-- Faq section -->
-  <section class="faq">
-    <div class="faq_heading">
-      <h1>Frequently Asked Questions</h1>
-    </div>
-    <div class="accordion">
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>Who are we and what do we do?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p>We have created a user-friendly website that promotes mental health care and provides resources and support for individuals facing mental health challenges , 
-            with the aim
-            to provide a one step solution to get relief from stress, anxiety, depression. We hope that everyone can live a
-            stress free life with the help of Healthista.</p>
-        </div>
-      </div>
-
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>What are the services we offer?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p>We offer multiple services like:
-            <br>
-            1. Audio Therapy
-            <br>
-            2. Reading Therapy
-            <br>
-            3. Yoga Therapy
-            <br>
-            4. Laughing Therapy
-            <br>
-            5. Spritual Therapy
-            <br>
-            6. Doctor Consultation
-          </p>
-        </div>
-      </div>
-
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>How can you Contact Us?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p> You can contact us via <a class="email" href="abc@gmail.com">#</a>
-          </p>
-        </div>
-      </div>
-
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>What is Reading Therapy?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p>Reading therapy is a creative art therapy that uses literature to support good
-            mental health and is a versatile and cost-effective treatment. It includes storytelling or the reading of
-            specific texts.</p>
-        </div>
-      </div>
-
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>What is Audio Therapy?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p>Audio Therapy includes auditory and vibratory inputs which are used to influence a person's psychological
-            state, includes sound healing, vibroacoustic sound therapy, music, and music therapy.</p>
-        </div>
-      </div>
-
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>What is Yoga Therapy?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p>Yoga therapy uses yoga postures, breathing exercises, meditation, and guided imagery to improve mental and
-            physical health.</p>
-        </div>
-      </div>
-
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>What is Laughing Therapy?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p>Laughing therapy uses humor to help relieve pain and stress and improve a person's sense of well-being
-            through jokes and playful exercises that encourage hearty, continuous, and lively laughter.</p>
-        </div>
-      </div>
-
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>What is Talking Therapy?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p>Talking therapy involves talking to someone to help deal with negative feelings or other mental health
-            problems. It helps shy individuals open up their problems to others so that they can help them overcome
-            them.</p>
-        </div>
-      </div>
-
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>What is Child Therapy?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p>Child therapy includes the watching of cute videos and images of children, as children make us
-            forget about our problems with their innocence and cuteness.</p>
-        </div>
-      </div>
-
-      <div class="accordion__item">
-        <button class="accordion__btn">
-
-          <span class="accordion__caption"><i class="far fa-lightbulb"></i>What is Spritual Therapy?</span>
-          <span class="accordion__icon"><i class="fa fa-plus"></i></span>
-        </button>
-
-        <div class="accordion__content">
-          <p>Spiritual therapy is a form of counseling that attempts to treat a person's soul as well as mind and body
-            by accessing individual belief systems and using
-            that faith in a higher power to explore areas of conflict in life.</p>
-        </div>
-      </div>
-    </div>
-    </div>
-  </section>
-
-  <!-- footer start -->
-  <footer>
-    <div class="footer-container">
-      <!--logo and info column-->
-      <div class="col">
-        <!--logo insert-->
-        <img src="./images/logo.png" alt="logo" class="footlogo" />
-        <div class="footercontent">
-          <h2 class="footerheading">Healthista</h2>
-          <p class="footerpara">Wellness website</p>
-        </div>
-      </div>
-
-      <!--ADDRESS COLUMN-->
-
-      <div class="footer-side-col">
-        <div class="col">
-          <h3>Contact Us</h3>
-          <p class="email-id"><a href="#">rtsr@gmail.com</a></p>
-        </div>
-        <!--HOME COLUMN-->
-        <div class="col">
-          <h3>HOME</h3>
-          <ul>
-            <li><a href="#about">About Us</a></li>
-            <li>
-              <a href="#">Code Of Conduct</a>
-            </li>
-            <li>
-              <a href="#">Contribute</a>
-            </li>
-             
-          </ul>
-        </div>
-        <!--OUR SERVICES COLUMN-->
-        <div class="col">
-          <h3>
-            SERVICES
-            <div class="underline"><span></span></div>
-          </h3>
-          <ul>
-            <li>
-              <a href="http://127.0.0.1:5501/therapy/spritiual.html#">Spiritual therapy</a>
-            </li>
-            <li>
-              <a href="http://127.0.0.1:5501/therapy/yoga.html#">Yoga Therapy</a>
-            </li>
-            <li>
-              <a href="http://127.0.0.1:5501/therapy/laugh.html#">Laughter therapy</a>
-            </li>
-            <li>
-              <a href="http://127.0.0.1:5501/therapy/read.html">Read therapy</a>
-            </li>
-            <li>
-              <a href="http://127.0.0.1:5501/therapy/auido.html">Audio therapy</a>
-            </li>
-            <li><a href="">Chatbot</a></li>
-          </ul>
-        </div>
-        <CONTACTS COLUMN>
-          <div class="col">
-          <h3>
-            CONTACTS
-            <div class="underline"><span></span></div>
-          </h3>
-          <div class="social-menu">
-            <ul>
-              <a href="#" target="_blank">
-                <li id="social-twitter"><i class="fab fa-2x fa-twitter"></i></li>
-              </a>
-              <a href="https://github.com/CdCrftrs">
-                <li id="social-github"><i class="fab fa-2x fa-github"></i></li>
-              </a>
-              <a href="https://www.linkedin.com/in/yashwanth-devagudi-v-v-a1a740295?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"> 
-                <li id="social-linkedin"><i class="fab fa-2x fa-linkedin-in"></i></li>
-              </a>
+          <div class="nav-links" id="navLinks">
+            <ul class="links" id="navmenu">
+              <li><a href="#">HOME</a></li>
+              <li><a href="#about">ABOUT</a></li>
+              <li><a href="#services">SERVICES </a></li>
+              <li><a href="/therapy/contact.html">CONTACT US </a></li>
             </ul>
           </div>
-        </div> 
-      </div>
+          <div class="hamburger" id="ham">
+            <i class="cancel fa-solid fa-xmark"></i>
+    
+            <svg class="burger" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z">
+              </path>
+            </svg>
+          </div>
+        </nav>
+    <div class="chat-container">
+        <div class="chat-header">ChatBot</div>
+        <div class="chat-window" id="chat-window"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message here">
+            <button id="send-btn">Send</button>
+        </div>
     </div>
-    </div>
-  </footer>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
+    <script>
+        // Function to create a new user message
+        function createUserMessage(message) {
+            var messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'user-message');
+            messageElement.textContent = message;
+            return messageElement;
+        }
 
-    let preloader = document.querySelector(".loading-wrapper");
-    function myFunction() {
-      preloader.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-    let navbar = document.querySelector("#nav");
-    let navmenu = document.querySelector("#navmenu");
+        // Function to create a new bot message
+        function createBotMessage(message) {
+            var messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'bot-message');
+            messageElement.textContent = message;
+            return messageElement;
+        }
 
-    window.onscroll = function () {
-      if (window.pageYOffset >= navmenu.offsetTop) {
-        navbar.classList.add("sticky");
-      } else {
-        navbar.classList.remove("sticky");
-      }
-    };
+        // Function to create a loading message
+        function createLoadingMessage() {
+            var messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'bot-message', 'loading');
+            messageElement.innerHTML = '<span></span><span></span><span></span>';
+            return messageElement;
+        }
 
-    window.onscroll = () => {
-      if (window.scrollY > 100) {
-        navbar.classList.add('nav-active');
-      } else {
-        navbar.classList.remove('nav-active');
-      }
-    };
-  </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./serviceworker.js')
-          .then((reg) => console.log('Success', reg.scope))
-          .catch((err) => console.log('Error', err))
-      })
-    }
-  </script>
-    <script src="./therapy/contact.html"></script>
-    <script src="./js/index.js"></script>
-    <script src="./js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+        // Function to handle user input
+        async function handleUserInput() {
+            var userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return;
+
+            // Display the user message in the chat window
+            var chatWindow = document.getElementById('chat-window');
+            chatWindow.appendChild(createUserMessage(userInput));
+            document.getElementById('user-input').value = '';  // Clear the input field
+
+            // Display loading message
+            var loadingMessage = createLoadingMessage();
+            chatWindow.appendChild(loadingMessage);
+            chatWindow.scrollTop = chatWindow.scrollHeight;  // Scroll to the bottom
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'x-rapidapi-key': '74e08c8d1dmshc3c3b3d2a461171p1baf7fjsnd8f3e40e57e1',
+                    'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    messages: [
+                        {
+                            role: 'user',
+                            content: userInput
+                        }
+                    ]
+                })
+            };
+
+            try {
+                const response = await fetch('https://open-ai21.p.rapidapi.com/conversationpalm2', options);
+                const result = await response.json();
+                // Extract the bot message
+                const botMessage = result.BOT || "Error: no response"; // Extract the bot's message
+                chatWindow.removeChild(loadingMessage); // Remove the loading message
+                chatWindow.appendChild(createBotMessage(botMessage));
+                chatWindow.scrollTop = chatWindow.scrollHeight;  // Scroll to the bottom
+            } catch (err) {
+                console.log(err);
+                chatWindow.removeChild(loadingMessage); // Remove the loading message in case of error
+                chatWindow.appendChild(createBotMessage("Error: Unable to fetch response."));
+            }
+        }
+
+        // Event listener for send button
+        document.getElementById('send-btn').addEventListener('click', handleUserInput);
+
+        // Event listener for Enter key press
+        document.getElementById('user-input').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                handleUserInput();
+            }
+        });
+    </script>
 </body>
-
 </html>
